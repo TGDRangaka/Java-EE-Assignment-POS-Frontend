@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dsfd</title>
+</head>
+<body>
+
+<button id="get">Get All</button>
+<button id="post">Save</button>
+<button id="put">Update</button>
+<button id="delete">Delete</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+
+    $("#get").on('click', ()=>{
+        let settings = {
+            "url": "http://localhost:8080/pos/customer",
+            "method": "GET",
+            "timeout": 0,
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    })
+
+    $("#post").on('click', ()=>{
+        let settings = {
+            "url": "http://localhost:8080/pos/customer",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "id": "C002",
+                "name": "Hasith",
+                "address": "Galle",
+                "salary": 12000
+            }),
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    })
+
+    $("#put").on('click', ()=>{
+        let settings = {
+            "url": "http://localhost:8080/pos/customer",
+            "method": "PUT",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": JSON.stringify({
+                "id": "C002",
+                "name": "Hasith",
+                "address": "Galle",
+                "salary": 12000
+            }),
+        };
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    })
+</script>
+</body>
+</html>
