@@ -3,10 +3,6 @@ package lk.ijse.assignment11posbackend.service.custom.Impl;
 import lk.ijse.assignment11posbackend.entity.Customer;
 import lk.ijse.assignment11posbackend.service.custom.CustomerService;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-
-import java.sql.SQLException;
 import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
@@ -29,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean delete(String id, Session session) throws Exception {
-        session.remove(session.get(id, Customer.class));
+        session.remove(session.get(Customer.class, id));
         return true;
     }
 }

@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDTO {
+public class OrderDetailDTO {
     private String id;
-    private String name;
-    private String address;
-    private double salary;
-    private List<OrderDetailDTO> orderDetails;
+    private LocalDate date;
+    private CustomerDTO customer;
+    private List<ItemDTO> items;
+    private double discount;
+    private double total;
 }

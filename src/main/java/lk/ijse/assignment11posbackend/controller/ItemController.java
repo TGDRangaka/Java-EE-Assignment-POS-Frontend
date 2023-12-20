@@ -8,34 +8,32 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.assignment11posbackend.bo.BOFactory;
-import lk.ijse.assignment11posbackend.bo.custom.CustomerBO;
-import lk.ijse.assignment11posbackend.bo.custom.Impl.CustomerBOImpl;
+import lk.ijse.assignment11posbackend.bo.custom.ItemBO;
 import lk.ijse.assignment11posbackend.dto.CustomerDTO;
+import lk.ijse.assignment11posbackend.dto.ItemDTO;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "Customer", urlPatterns = "/customer", loadOnStartup = 4)
-public class CustomerController extends HttpServlet {
+@WebServlet(name = "Item", urlPatterns = "/item", loadOnStartup = 5)
+public class ItemController extends HttpServlet {
 
-    private CustomerBO customerBO = (CustomerBOImpl) BOFactory.getInstance().getBO(BOFactory.BOTypes.CUSTOMER);
+    private ItemBO itemBO = (ItemBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.ITEM);
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         System.out.println("init()");
     }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            List<CustomerDTO> customers = customerBO.getAllCustomers();
+            List<ItemDTO> items = itemBO.getAllItems();
             System.out.println();
             ObjectMapper objectMapper = new ObjectMapper();
-            String jsonCustomers = objectMapper.writeValueAsString(customers);
+            String json = objectMapper.writeValueAsString(items);
 
             resp.setContentType("application/json");
-            resp.getWriter().write(jsonCustomers);
+            resp.getWriter().write(json);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,14 +42,14 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
-        CustomerDTO customer = mapper.readValue(req.getInputStream(), CustomerDTO.class);
-        System.out.println(customer);
+        ItemDTO itemDTO = mapper.readValue(req.getInputStream(), ItemDTO.class);
+        System.out.println(itemDTO);
 
         try {
-            if(customerBO.saveCustomer(customer)){
-                resp.getWriter().write("Customer Saved");
+            if(itemBO.saveItem(itemDTO)){
+                resp.getWriter().write("Item Saved");
             }else{
-                resp.getWriter().write("Customer Not Saved");
+                resp.getWriter().write("Item Not Saved");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,14 +60,14 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
-        CustomerDTO customer = mapper.readValue(req.getInputStream(), CustomerDTO.class);
-        System.out.println(customer);
+        ItemDTO itemDTO = mapper.readValue(req.getInputStream(), ItemDTO.class);
+        System.out.println(itemDTO);
 
         try {
-            if(customerBO.updateCustomer(customer)){
-                resp.getWriter().write("Customer Updated");
+            if(itemBO.updateItem(itemDTO)){
+                resp.getWriter().write("Item Updated");
             }else{
-                resp.getWriter().write("Customer Not Updated");
+                resp.getWriter().write("Item Not Updated");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,10 +80,10 @@ public class CustomerController extends HttpServlet {
         String id = req.getParameter("id");
 
         try {
-            if(customerBO.deleteCustomer(id)){
-                resp.getWriter().write("Customer Deleted");
+            if(itemBO.deleteItem(id)){
+                resp.getWriter().write("Item Deleted");
             }else{
-                resp.getWriter().write("Customer Not Deleted");
+                resp.getWriter().write("Item Not Deleted");
             }
         } catch (Exception e) {
             e.printStackTrace();

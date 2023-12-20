@@ -17,4 +17,6 @@ public class Customer {
     private String name;
     private String address;
     private double salary;
+    @OneToMany(mappedBy = "customer",orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 }
