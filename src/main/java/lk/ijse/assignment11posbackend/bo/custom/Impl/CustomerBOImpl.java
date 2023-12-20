@@ -34,6 +34,7 @@ public class CustomerBOImpl implements CustomerBO {
 
         if(customerService.save(Convert.customerDTOToEntity(dto), session)){
             transaction.commit();
+            session.close();
             return true;
         }
 
@@ -48,6 +49,7 @@ public class CustomerBOImpl implements CustomerBO {
 
         if(customerService.update(Convert.customerDTOToEntity(dto), session)){
             transaction.commit();
+            session.close();
             return true;
         }
 
@@ -62,6 +64,7 @@ public class CustomerBOImpl implements CustomerBO {
 
         if(customerService.delete(id, session)){
             transaction.commit();
+            session.close();
             return true;
         }
 

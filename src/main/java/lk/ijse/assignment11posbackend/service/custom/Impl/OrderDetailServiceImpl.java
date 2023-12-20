@@ -10,12 +10,13 @@ import java.util.List;
 public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public List<OrderDetail> getAll(Session session) throws Exception {
-        return null;
+        return session.createQuery("FROM OrderDetail ", OrderDetail.class).getResultList();
     }
 
     @Override
     public boolean save(OrderDetail orderDetail, Session session) throws Exception {
-        return false;
+        session.persist(orderDetail);
+        return true;
     }
 
     @Override

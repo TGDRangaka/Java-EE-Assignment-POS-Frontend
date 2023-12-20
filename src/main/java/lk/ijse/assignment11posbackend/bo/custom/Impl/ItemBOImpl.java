@@ -37,6 +37,7 @@ public class ItemBOImpl implements ItemBO {
 
         if(itemService.save(Convert.itemDTOToEntity(dto), session)){
             transaction.commit();
+            session.close();
             return true;
         }
 
@@ -51,6 +52,7 @@ public class ItemBOImpl implements ItemBO {
 
         if(itemService.update(Convert.itemDTOToEntity(dto), session)){
             transaction.commit();
+            session.close();
             return true;
         }
 
@@ -65,6 +67,7 @@ public class ItemBOImpl implements ItemBO {
 
         if(itemService.delete(id, session)){
             transaction.commit();
+            session.close();
             return true;
         }
 
